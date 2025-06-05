@@ -1,0 +1,28 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/black">
+
+    <!-- Zoekbalk bovenaan -->
+    <EditText
+        android:id="@+id/searchBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/search"
+        android:drawableStart="@android:drawable/ic_menu_search"
+        android:tint="@android:color/black"
+        android:padding="12dp"
+        android:background="@android:color/darker_gray"
+        android:textColor="@color/black"
+        android:textColorHint="#CCCCCC"
+        android:inputType="text" />
+
+    <!-- RecyclerView die scrollbaar is -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+
+</LinearLayout>
