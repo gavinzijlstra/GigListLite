@@ -1,5 +1,7 @@
 package com.gavinzijlstra.giglistlite
 
+import android.app.AlertDialog
+import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
@@ -8,8 +10,10 @@ import androidx.recyclerview.widget.RecyclerView
 import retrofit2.*
 import retrofit2.converter.gson.GsonConverterFactory
 import android.util.Log
+import android.view.LayoutInflater
 import android.widget.EditText
 import androidx.core.widget.addTextChangedListener
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 class MainActivity : AppCompatActivity() {
     private lateinit var recyclerView: RecyclerView
@@ -21,8 +25,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         val searchBar = findViewById<EditText>(R.id.searchBar)
-
-
+        val addGigFab = findViewById<FloatingActionButton>(R.id.addGigFab)
 
         recyclerView = findViewById(R.id.recyclerView)
         recyclerView.layoutManager = LinearLayoutManager(this)
@@ -58,6 +61,30 @@ class MainActivity : AppCompatActivity() {
                 gig.band.contains(query, ignoreCase = true)
             }
             gigAdapter.updateList(filteredList)
+        }
+
+        addGigFab.setOnClickListener {
+            val dialogView = LayoutInflater.from(this).inflate(R.layout.dialog_add_gig, null)
+            val dialog = AlertDialog.Builder(this)
+                .setTitle("Nieuwe Gig toevoegen")
+                .setView(dialogView)
+                .setPositiveButton("Opslaan") { _, _ ->
+                    val artist = dialogView.findViewById<EditText>(R.id.artistInput).text.toString()
+                    val date = dialogView.findViewById<EditText>(R.id.dateInput).text.toString()
+                    val venue = dialogView.findViewById<EditText>(R.id.venueInput).text.toString()
+                    // Maak nieuwe Gig en voeg toe aan lijst
+
+                    Log.d("Created Gig", "artist: ${artist},date: ${date}, venue: ${venue} ")
+
+                }
+                .setNegativeButton("Annuleren", null)
+                .create()
+            dialog.setOnShowListener {
+                dialog.getButton(AlertDialog.BUTTON_POSITIVE)?.setTextColor(Color.BLACK)
+                dialog.getButton(AlertDialog.BUTTON_NEGATIVE)?.setTextColor(Color.BLACK)
+            }
+            dialog.show()
+
         }
     }
 }

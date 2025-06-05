@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:padding="20dp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <EditText
+        android:id="@+id/artistInput"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Artiest"
+        android:inputType="textPersonName"
+        android:textCursorDrawable="@drawable/custom_cursor"
+        android:backgroundTint="@color/anthracite"
+        android:maxLines="1" />
+
+    <EditText
+        android:id="@+id/dateInput"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Datum (bijv. 2025-06-15)"
+        android:inputType="text"
+        android:maxLines="1"
+        android:textCursorDrawable="@drawable/custom_cursor"
+        android:backgroundTint="@color/anthracite"
+        android:layout_marginTop="12dp" />
+
+    <EditText
+        android:id="@+id/venueInput"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Zaal"
+        android:inputType="text"
+        android:maxLines="1"
+        android:textCursorDrawable="@drawable/custom_cursor"
+        android:backgroundTint="@color/anthracite"
+        android:layout_marginTop="12dp" />
+
+</LinearLayout>
