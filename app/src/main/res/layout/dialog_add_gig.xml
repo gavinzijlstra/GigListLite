@@ -30,9 +30,33 @@
         android:id="@+id/venueInput"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:hint="Venue"
+        android:inputType="text"
+        android:maxLines="1"
+        android:textCursorDrawable="@drawable/custom_cursor"
+        android:backgroundTint="@color/anthracite"
+        android:layout_marginTop="12dp" />
+
+    <EditText
+        android:id="@+id/zaalInput"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:hint="Zaal"
         android:inputType="text"
         android:maxLines="1"
+        android:textCursorDrawable="@drawable/custom_cursor"
+        android:backgroundTint="@color/anthracite"
+        android:layout_marginTop="12dp" />
+
+    <EditText
+        android:id="@+id/opmerkingInput"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Opmerkingen ... "
+        android:minLines="3"
+        android:maxLines="5"
+        android:gravity="top|start"
+        android:inputType="textMultiLine"
         android:textCursorDrawable="@drawable/custom_cursor"
         android:backgroundTint="@color/anthracite"
         android:layout_marginTop="12dp" />
