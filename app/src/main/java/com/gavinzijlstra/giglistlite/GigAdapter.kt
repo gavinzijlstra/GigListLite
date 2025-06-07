@@ -1,13 +1,18 @@
 package com.gavinzijlstra.giglistlite
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 
-class GigAdapter(private var gigList: List<Gig>) : RecyclerView.Adapter<GigAdapter.GigViewHolder>() {
+class GigAdapter(
+    private var gigList: List<Gig>,
+    private val onGigLongClicked: (Gig) -> Unit
+) : RecyclerView.Adapter<GigAdapter.GigViewHolder>() {
 
     private val expandedPositions = mutableSetOf<Int>()
 
@@ -27,7 +32,7 @@ class GigAdapter(private var gigList: List<Gig>) : RecyclerView.Adapter<GigAdapt
     }
 
     override fun onBindViewHolder(holder: GigViewHolder, position: Int) {
-        val Gig = gigList[position]
+        val gig = gigList[position]
 
         val isExpanded = expandedPositions.contains(position)
         if (isExpanded) {
@@ -36,18 +41,36 @@ class GigAdapter(private var gigList: List<Gig>) : RecyclerView.Adapter<GigAdapt
             holder.caretIcon.setImageResource(R.drawable.baseline_keyboard_arrow_down_24)
         }
 
-        holder.dateText.text = Gig.datum
-        holder.artistText.text = Gig.band
-        val location = if (Gig.zaal != "") " (" + Gig.zaal + ")" else ""
-        holder.venueText.text = Gig.venue + location
-        holder.details.text = Gig.opmerking
+        holder.dateText.text = gig.datum
+        holder.artistText.text = gig.band
+        val location = if (gig.zaal != "") " (" + gig.zaal + ")" else ""
+        holder.venueText.text = gig.venue + location
+        holder.details.text = gig.opmerking
         holder.details.visibility = if (expandedPositions.contains(position)) View.VISIBLE else View.GONE
 
+        // Openvouwen van de description
         holder.headerContainer.setOnClickListener {
             if (expandedPositions.contains(position)) expandedPositions.remove(position)
             else expandedPositions.add(position)
             notifyItemChanged(position)
         }
+
+        // Long press op band-naam
+        holder.artistText.setOnLongClickListener {
+            it.performHapticFeedback(android.view.HapticFeedbackConstants.LONG_PRESS)
+            //onLongClick(gig)
+            //Toast.makeText(holder.itemView.context, "Long click op: ${gig.band}", Toast.LENGTH_SHORT).show()
+            Log.d("GigList-GigAdapter", "Long click op: ${gig.band}")
+            val context = holder.itemView.context
+            if (context is MainActivity) {
+                onGigLongClicked(gig);
+            }
+            //                GigDialog(context, context.token, gig) {
+            //                    context.refreshGigList(swipeRefreshLayout)
+            //                }.show()
+            true
+        }
+
     }
 
     fun updateList(newList: List<Gig>) {
@@ -56,4 +79,5 @@ class GigAdapter(private var gigList: List<Gig>) : RecyclerView.Adapter<GigAdapt
     }
 
     override fun getItemCount() = gigList.size
+
 }
