@@ -21,11 +21,13 @@
                     android:hint="@string/search"
                     android:drawableStart="@android:drawable/ic_menu_search"
                     android:tint="@android:color/black"
+                    android:textCursorDrawable="@drawable/custom_cursor"
                     android:padding="12dp"
                     android:background="@color/lightGray"
                     android:textColor="@color/black"
                     android:textColorHint="@color/anthracite"
-                    android:inputType="text" />
+                    android:inputType="text"
+                    android:autofillHints="" />
 
                 <!-- RecyclerView -->
                 <androidx.recyclerview.widget.RecyclerView
@@ -36,7 +38,7 @@
             </LinearLayout>
         </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
-        <!-- FAB bovenop -->
+        <!-- FAB on top -->
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/addGigFab"
             android:layout_width="wrap_content"
@@ -46,7 +48,7 @@
             android:src="@drawable/baseline_add_24"
             android:tint="@color/black"
             android:scaleType="fitCenter"
-            android:contentDescription="Voeg nieuwe gig toe"
+            android:contentDescription="@string/voeg_nieuwe_gig_toe"
             app:backgroundTint="@color/lightGray"
             app:borderWidth="3dp"
             app:strokeColor="@color/black"

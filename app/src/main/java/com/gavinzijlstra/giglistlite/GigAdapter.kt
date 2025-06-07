@@ -1,12 +1,13 @@
 package com.gavinzijlstra.giglistlite
 
+import android.annotation.SuppressLint
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.TextView
-import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 
 class GigAdapter(
@@ -22,8 +23,9 @@ class GigAdapter(
         val dateText: TextView = itemView.findViewById(R.id.dateText)
         val artistText: TextView = itemView.findViewById(R.id.artistText)
         val venueText: TextView = itemView.findViewById(R.id.venueText)
-        val details: TextView = itemView.findViewById(R.id.detailsText)
         val caretIcon: ImageView = itemView.findViewById(R.id.caretIcon)
+        val details: TextView = itemView.findViewById(R.id.detailsText)
+        val detailsContainer : LinearLayout = itemView.findViewById(R.id.detailsContainer)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GigViewHolder {
@@ -44,9 +46,10 @@ class GigAdapter(
         holder.dateText.text = gig.datum
         holder.artistText.text = gig.band
         val location = if (gig.zaal != "") " (" + gig.zaal + ")" else ""
-        holder.venueText.text = gig.venue + location
+        holder.venueText.text = "${gig.venue}$location"
         holder.details.text = gig.opmerking
-        holder.details.visibility = if (expandedPositions.contains(position)) View.VISIBLE else View.GONE
+        //holder.details.visibility = if (expandedPositions.contains(position)) View.VISIBLE else View.GONE
+        holder.detailsContainer.visibility = if (expandedPositions.contains(position)) View.VISIBLE else View.GONE
 
         // Openvouwen van de description
         holder.headerContainer.setOnClickListener {
@@ -63,16 +66,14 @@ class GigAdapter(
             Log.d("GigList-GigAdapter", "Long click op: ${gig.band}")
             val context = holder.itemView.context
             if (context is MainActivity) {
-                onGigLongClicked(gig);
+                onGigLongClicked(gig)
             }
-            //                GigDialog(context, context.token, gig) {
-            //                    context.refreshGigList(swipeRefreshLayout)
-            //                }.show()
             true
         }
 
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     fun updateList(newList: List<Gig>) {
         gigList = newList
         notifyDataSetChanged()

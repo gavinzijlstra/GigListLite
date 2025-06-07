@@ -1,4 +1,10 @@
 <resources>
     <string name="app_name">GigListLite</string>
-    <string name="search">Zoeken...</string>
+    <string name="search">Zoeken…</string>
+    <string name="datum">Datum</string>
+    <string name="details_hier">Details hier…</string>
+    <string name="artiest">Artiest</string>
+    <string name="expand">expand</string>
+    <string name="zaal">Zaal</string>
+    <string name="voeg_nieuwe_gig_toe">Voeg nieuwe gig toe</string>
 </resources>

@@ -1,23 +1,20 @@
 package com.gavinzijlstra.giglistlite
 
 import android.app.AlertDialog
-import android.content.res.ColorStateList
-import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import retrofit2.*
-import retrofit2.converter.gson.GsonConverterFactory
 import android.util.Log
-import android.view.LayoutInflater
 import android.widget.EditText
 import androidx.core.widget.addTextChangedListener
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
+@Suppress("DEPRECATION")
 class MainActivity : AppCompatActivity() {
     private lateinit var recyclerView: RecyclerView
     private lateinit var gigAdapter: GigAdapter
@@ -64,7 +61,7 @@ class MainActivity : AppCompatActivity() {
 
         searchBar.addTextChangedListener {
             val query = it.toString()
-            Log.d("GigList-MainActivity", "Search for: " + query)
+            Log.d("GigList-MainActivity", "Search for: $query")
             val filteredList = allGigs.filter { gig ->
                 gig.band.contains(query, ignoreCase = true)
             }
@@ -137,7 +134,7 @@ class MainActivity : AppCompatActivity() {
             }
 
             override fun onFailure(call: Call<List<Gig>>, t: Throwable) {
-                Toast.makeText(this@MainActivity, "Fout bij verversen lijst", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this@MainActivity, "Fout bij verversen lijst", Toast.LENGTH_SHORT).show()
                 swipeRefreshLayout.isRefreshing = false
             }
         })
