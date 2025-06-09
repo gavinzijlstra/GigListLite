@@ -13,21 +13,53 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
-                <!-- Zoekbalk -->
-                <EditText
-                    android:id="@+id/searchBar"
+                <!-- Zoekbalk container -->
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/search"
-                    android:drawableStart="@android:drawable/ic_menu_search"
-                    android:tint="@android:color/black"
-                    android:textCursorDrawable="@drawable/custom_cursor"
-                    android:padding="12dp"
+                    android:orientation="horizontal"
+                    android:padding="8dp"
                     android:background="@color/lightGray"
-                    android:textColor="@color/black"
-                    android:textColorHint="@color/anthracite"
-                    android:inputType="text"
-                    android:autofillHints="" />
+                    android:gravity="center_vertical">
+
+                    <!-- Menu knop -->
+                    <ImageButton
+                        android:id="@+id/menuButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@android:color/transparent"
+                        android:src="@drawable/baseline_menu_24"
+                        android:contentDescription="Menu"
+                        app:tint="@color/anthracite"
+                        android:padding="4dp" />
+
+                    <!-- Zoekveld -->
+                    <EditText
+                        android:id="@+id/searchBar"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/search"
+                        android:drawableStart="@android:drawable/ic_menu_search"
+                        android:tint="@android:color/black"
+                        android:textCursorDrawable="@drawable/custom_cursor"
+                        android:padding="12dp"
+                        android:background="@color/lightGray"
+                        android:textColor="@color/black"
+                        android:textColorHint="@color/anthracite"
+                        android:inputType="text" />
+
+                    <!-- Clear knop -->
+                    <ImageButton
+                        android:id="@+id/clearButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/baseline_clear_18"
+                        android:background="?attr/selectableItemBackgroundBorderless"
+                        android:contentDescription="Wis zoekveld"
+                        app:tint="@color/anthracite"
+                        android:padding="4dp" />
+                </LinearLayout>
 
                 <!-- RecyclerView -->
                 <androidx.recyclerview.widget.RecyclerView

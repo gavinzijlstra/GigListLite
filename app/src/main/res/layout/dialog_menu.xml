@@ -1,0 +1,49 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:padding="24dp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <RadioGroup
+        android:id="@+id/radioGroup"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+
+        <RadioButton
+            android:id="@+id/radioBand"
+            android:text="Band"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            android:buttonTint="@color/anthracite"
+            android:layout_height="match_parent"
+            android:layout_width="match_parent"/>
+
+        <RadioButton
+            android:id="@+id/radioVenue"
+            android:text="Venue"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            android:buttonTint="@color/anthracite"
+            android:layout_height="match_parent"
+            android:layout_width="match_parent"/>
+
+        <RadioButton
+            android:id="@+id/radioDatum"
+            android:text="Datum"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            android:buttonTint="@color/anthracite"
+            android:layout_height="match_parent"
+            android:layout_width="match_parent"/>
+
+        <RadioButton
+            android:id="@+id/radioOpmerking"
+            android:text="Opmerking"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            android:buttonTint="@color/anthracite"
+            android:layout_height="match_parent"
+            android:layout_width="match_parent"/>
+    </RadioGroup>
+</LinearLayout>

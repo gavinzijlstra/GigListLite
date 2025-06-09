@@ -1,6 +1,8 @@
 package com.gavinzijlstra.giglistlite
 
 import android.app.AlertDialog
+import android.content.Context
+import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
@@ -8,7 +10,10 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import retrofit2.*
 import android.util.Log
+import android.view.Menu
+import android.view.MenuItem
 import android.widget.EditText
+import android.widget.ImageButton
 import androidx.core.widget.addTextChangedListener
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
@@ -16,20 +21,27 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 @Suppress("DEPRECATION")
 class MainActivity : AppCompatActivity() {
+
     private lateinit var recyclerView: RecyclerView
     private lateinit var gigAdapter: GigAdapter
     private var allGigs: List<Gig> = emptyList()
-    //val token = "12345"
+    private lateinit var prefs: SharedPreferences
+
+    //val token = "32991640-9b1b-487a-86ac-2b21639ac300" // Manfredi
     //val token = "8b1cfa0b-4a61-4536-b92a-210463027220" // Gavin
-    val token = "32991640-9b1b-487a-86ac-2b21639ac300" // Manfredi
+    val token = "12345"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        val prefs = getSharedPreferences("GigListLitePrefs", Context.MODE_PRIVATE)
+        var selectedSearchField = prefs.getString("search_field", "band") ?: "band"
+
         val searchBar = findViewById<EditText>(R.id.searchBar)
         val addGigFab = findViewById<FloatingActionButton>(R.id.addGigFab)
         val swipeRefreshLayout = findViewById<SwipeRefreshLayout>(R.id.swipeRefreshLayout)
+        val clearButton = findViewById<ImageButton>(R.id.clearButton)
 
         recyclerView = findViewById(R.id.recyclerView)
         recyclerView.layoutManager = LinearLayoutManager(this)
@@ -64,10 +76,22 @@ class MainActivity : AppCompatActivity() {
             val query = it.toString()
             Log.d("GigList-MainActivity", "Search for: $query")
             val filteredList = allGigs.filter { gig ->
-                gig.band.contains(query, ignoreCase = true)
+                //gig.band.contains(query, ignoreCase = true)
+                when (selectedSearchField) {
+                    "band" -> gig.band.contains(query, ignoreCase = true)
+                    "venue" -> gig.venue.contains(query, ignoreCase = true)
+                    "datum" -> gig.datum.contains(query, ignoreCase = true)
+                    "opmerking" -> gig.opmerking.contains(query, ignoreCase = true)
+                    else -> true
+                }
             }
             gigAdapter.updateList(filteredList)
         }
+
+        clearButton.setOnClickListener {
+            searchBar.text.clear()
+        }
+
         addGigFab.setOnClickListener {
             GigDialog(this, token, null) {
                 refreshGigList(swipeRefreshLayout)
@@ -122,6 +146,23 @@ class MainActivity : AppCompatActivity() {
         swipeRefreshLayout.setOnRefreshListener {
             refreshGigList(swipeRefreshLayout)
         }
+
+        val menuButton = findViewById<ImageButton>(R.id.menuButton)
+        menuButton.setOnClickListener {
+
+            MenuDialog(selectedSearchField) { selectedField ->
+                Toast.makeText(this, "Filter op: $selectedField", Toast.LENGTH_SHORT).show()
+
+                // Opslaan in SharedPreferences
+                prefs.edit().putString("search_field", selectedField).apply()
+                selectedSearchField = selectedField
+
+                // eventueel je lijst updaten of zoeken opnieuw uitvoeren
+            }.show(supportFragmentManager, "SearchFilterDialog")
+
+
+        }
+
     }
 
     fun refreshGigList(swipeRefreshLayout: SwipeRefreshLayout) {
