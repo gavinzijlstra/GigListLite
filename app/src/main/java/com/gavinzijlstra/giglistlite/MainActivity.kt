@@ -28,8 +28,8 @@ class MainActivity : AppCompatActivity() {
     private lateinit var prefs: SharedPreferences
 
     //val token = "32991640-9b1b-487a-86ac-2b21639ac300" // Manfredi
-    val token = "5b88eb83-f000-4f0c-bce2-397589313d04" // Claudia
-    //val token = "8b1cfa0b-4a61-4536-b92a-210463027220" // Gavin
+    //val token = "5b88eb83-f000-4f0c-bce2-397589313d04" // Claudia
+    val token = "8b1cfa0b-4a61-4536-b92a-210463027220" // Gavin
     // val token = "12345"
 
     override fun onCreate(savedInstanceState: Bundle?) {
